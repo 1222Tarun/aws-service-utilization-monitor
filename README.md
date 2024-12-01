@@ -25,7 +25,7 @@ Here is a high-level overview of the solution's architecture:
 4. **SNS**: Sends the formatted email report to the user's email address.
 
 ### Architecture Diagram
-![Architecture Diagram](data_flow.png)
+![Architecture Diagram](Data-flow.png)
 
 ---
 
