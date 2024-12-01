@@ -129,3 +129,7 @@ The following AWS services are currently supported:
 
 - Only tracks services with available CloudWatch metrics.
 - Requires an active email subscription to receive notifications.
+
+## License
+- This project is licensed under the MIT License.
+
