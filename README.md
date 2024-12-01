@@ -1,5 +1,7 @@
+
 # aws-service-utilization-monitor
-**Short Description:**  An AWS-based solution to monitor service utilization using CloudWatch metrics, automate notifications via SNS, and provide cost optimization insights by identifying high-utilization services.
+**Short Description:** An AWS-based solution to monitor service utilization using CloudWatch metrics, automate notifications via SNS, and provide cost optimization insights by identifying high-utilization services.
+
 # AWS Service Utilization Monitor
 
 This project is an AWS-based solution that monitors the utilization of various AWS services using **CloudWatch** metrics and sends email notifications via **SNS**. It helps AWS users identify highly utilized and potentially costly services, enabling them to optimize usage and reduce costs.
@@ -52,45 +54,78 @@ Before setting up the solution, ensure the following:
 ## Setup Instructions
 
 ### 1. Clone the Repository
+
 Clone the project to your local machine:
+
 ```bash
 git clone https://github.com/your-repo/aws-service-utilization-monitor.git
 cd aws-service-utilization-monitor
+```
 
-3. Deploy Lambda Function
-Open the AWS Lambda console and upload the lambda_function.zip file to your function.
-Set the Handler to lambda_function.lambda_handler.
-Assign the appropriate IAM role with CloudWatch and SNS permissions.
-4. Configure EventBridge Rule
-Open the AWS EventBridge console.
-Create a new rule with the desired schedule (e.g., every hour).
-Set the target as your Lambda function.
-5. Configure SNS Topic
-Create an SNS topic in the AWS SNS console.
-Add email subscriptions to the topic.
-Update your Lambda function to publish notifications to this topic.
-Usage
-The solution runs automatically based on the EventBridge schedule.
-You will receive periodic email notifications with a detailed report of service utilization.
-Supported Services
+### 2. Prepare Lambda Deployment Package
+
+Install dependencies and create the Lambda deployment package:
+
+```bash
+# Navigate to the src folder
+cd src
+
+# Install required Python packages (e.g., tabulate)
+pip install --target ./package tabulate
+
+# Move your Lambda function (lambda_function.py) into the package directory
+cp lambda_function.py package/
+
+# Create a .zip file for deployment
+cd package
+zip -r ../lambda_function.zip .
+```
+
+### 3. Deploy Lambda Function
+
+1. Open the AWS Lambda console and upload the `lambda_function.zip` file to your function.
+2. Set the **Handler** to `lambda_function.lambda_handler`.
+3. Assign the appropriate IAM role with CloudWatch and SNS permissions.
+
+### 4. Configure EventBridge Rule
+
+1. Open the AWS EventBridge console.
+2. Create a new rule with the desired schedule (e.g., every hour).
+3. Set the target as your Lambda function.
+
+### 5. Configure SNS Topic
+
+1. Create an SNS topic in the AWS SNS console.
+2. Add email subscriptions to the topic.
+3. Update your Lambda function to publish notifications to this topic.
+
+## Usage
+
+- The solution runs automatically based on the EventBridge schedule.
+- You will receive periodic email notifications with a detailed report of service utilization.
+
+## Supported Services
+
 The following AWS services are currently supported:
 
-EC2
-Lambda
-RDS
-S3
-DynamoDB
-ElastiCache
-CloudFront
-CloudWatch
-Route 53
-Redshift
-And more...
+- EC2
+- Lambda
+- RDS
+- S3
+- DynamoDB
+- ElastiCache
+- CloudFront
+- CloudWatch
+- Route 53
+- Redshift
+- And more...
 
-Cost and Optimization
-Regular monitoring of highly utilized services helps minimize AWS costs.
-The email report highlights services with the highest utilization, enabling you to make informed decisions.
+## Cost and Optimization
 
-Limitations
-Only tracks services with available CloudWatch metrics.
-Requires an active email subscription to receive notifications.
+- Regular monitoring of highly utilized services helps minimize AWS costs.
+- The email report highlights services with the highest utilization, enabling you to make informed decisions.
+
+## Limitations
+
+- Only tracks services with available CloudWatch metrics.
+- Requires an active email subscription to receive notifications.
